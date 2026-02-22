@@ -182,6 +182,11 @@
       <tspan class="cursor">█</tspan>
     </text>
 
+
+
+
+
+
     <!-- Contact on separate line (no overlap) -->
     <text x="2" y="145" class="mono" font-size="14" fill="rgba(255,255,255,0.70)">
       sivakajan07@gmail.com  •  sivarajakajan.lk  •  linkedin.com/in/sivakajan
