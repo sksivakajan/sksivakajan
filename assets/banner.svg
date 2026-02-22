@@ -1,220 +1,190 @@
-<!-- assets/banner.svg -->
+<!-- assets/banner.svg (clean layout) -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
   <defs>
-    <!-- Dark background -->
+    <!-- Background -->
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#040005"/>
+      <stop offset="0" stop-color="#040007"/>
       <stop offset="1" stop-color="#000000"/>
     </linearGradient>
 
-    <!-- Red neon glow -->
+    <!-- Red glow -->
     <filter id="redGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="2.4" result="b"/>
-      <feColorMatrix in="b" type="matrix"
-        values="1 0 0 0 0
-                0 0.15 0 0 0
-                0 0 0.15 0 0
-                0 0 0 1 0" result="c"/>
-      <feMerge>
-        <feMergeNode in="c"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- White glow for text -->
-    <filter id="whiteGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
       <feMerge>
         <feMergeNode in="b"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Scanlines -->
+    <!-- White text glow -->
+    <filter id="whiteGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Scanlines pattern -->
     <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse">
       <rect width="6" height="2" fill="rgba(255,255,255,0.03)"/>
       <rect y="3" width="6" height="1" fill="rgba(255,255,255,0.015)"/>
     </pattern>
 
     <!-- Vignette -->
-    <radialGradient id="vig" cx="50%" cy="45%" r="75%">
+    <radialGradient id="vig" cx="45%" cy="45%" r="80%">
       <stop offset="0" stop-color="rgba(0,0,0,0)"/>
-      <stop offset="1" stop-color="rgba(0,0,0,0.7)"/>
+      <stop offset="1" stop-color="rgba(0,0,0,0.72)"/>
     </radialGradient>
 
     <style>
-      .mono { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-      .title { font-size: 74px; font-weight: 900; letter-spacing: 1px; }
-      .sub { font-size: 22px; font-weight: 500; opacity: 0.92; }
-      .about { font-size: 18px; opacity: 0.85; }
-      .small { font-size: 16px; opacity: 0.75; }
+      .ui { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+      .name { font-size: 72px; font-weight: 900; letter-spacing: 0.5px; }
+      .deg  { font-size: 20px; font-weight: 600; opacity: .92; }
+      .about{ font-size: 17px; opacity: .88; }
+      .line { font-size: 16px; opacity: .92; }
+      .muted{ opacity: .72; }
 
       /* Moving scanlines */
-      @keyframes scanMove {
-        0% { transform: translateY(-10px); opacity: .45; }
-        50% { opacity: .75; }
-        100% { transform: translateY(10px); opacity: .45; }
-      }
-      .scanMove { animation: scanMove 3.2s ease-in-out infinite; }
+      @keyframes scanMove { 0%{transform:translateY(-10px);opacity:.45} 50%{opacity:.75} 100%{transform:translateY(10px);opacity:.45} }
+      .scanMove { animation: scanMove 3.4s ease-in-out infinite; }
 
-      /* Name pulse */
-      @keyframes pulse {
-        0%,100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.01); opacity: 0.95; }
-      }
-      .pulse { animation: pulse 2.6s ease-in-out infinite; transform-origin: center; }
+      /* Laser dash motion */
+      @keyframes dash { to { stroke-dashoffset: -1200; } }
+      .laser { stroke-dasharray: 9 16; animation: dash 6.5s linear infinite; }
+
+      @keyframes driftA { 0%{transform:translate(0,0)} 50%{transform:translate(-18px,10px)} 100%{transform:translate(0,0)} }
+      @keyframes driftB { 0%{transform:translate(0,0)} 50%{transform:translate(22px,-12px)} 100%{transform:translate(0,0)} }
+      .driftA { animation: driftA 7.2s ease-in-out infinite; }
+      .driftB { animation: driftB 8.1s ease-in-out infinite; }
+
+      /* Wave motion */
+      @keyframes waveShift { 0%{transform:translateX(0)} 50%{transform:translateX(-25px)} 100%{transform:translateX(0)} }
+      .waveShift { animation: waveShift 5.5s ease-in-out infinite; }
+
+      /* Name subtle pulse */
+      @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.01)} }
+      .pulse { animation: pulse 2.6s ease-in-out infinite; transform-origin:left center; }
 
       /* Glitch jitter */
       @keyframes glitch {
-        0%{transform:translate(0,0)}
-        10%{transform:translate(-2px,1px)}
-        20%{transform:translate(2px,-1px)}
-        30%{transform:translate(-3px,0)}
-        40%{transform:translate(3px,1px)}
-        50%{transform:translate(0,0)}
-        60%{transform:translate(2px,0)}
-        70%{transform:translate(-1px,1px)}
-        80%{transform:translate(1px,0)}
-        90%{transform:translate(-2px,-1px)}
+        0%{transform:translate(0,0)} 12%{transform:translate(-2px,1px)}
+        24%{transform:translate(2px,-1px)} 36%{transform:translate(-3px,0)}
+        48%{transform:translate(3px,1px)} 60%{transform:translate(0,0)}
+        72%{transform:translate(2px,0)} 84%{transform:translate(-1px,1px)}
         100%{transform:translate(0,0)}
       }
-      .glitch { animation: glitch 1.8s steps(2,end) infinite; }
+      .glitch { animation: glitch 1.9s steps(2,end) infinite; }
 
       /* Cursor blink */
       @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
       .cursor { animation: blink 0.9s steps(2,end) infinite; }
 
-      /* “Typing” reveal using clip-path */
-      @keyframes reveal {
-        0% { clip-path: inset(0 100% 0 0); }
-        60% { clip-path: inset(0 0 0 0); }
-        100% { clip-path: inset(0 0 0 0); }
-      }
-      .typing { animation: reveal 3.2s steps(34,end) infinite; }
+      /* Typing reveal */
+      @keyframes reveal { 0%{clip-path:inset(0 100% 0 0)} 60%{clip-path:inset(0 0 0 0)} 100%{clip-path:inset(0 0 0 0)} }
+      .typing { animation: reveal 3.0s steps(34,end) infinite; }
 
-      /* Cycle multiple skill lines */
-      .l0, .l1, .l2, .l3 { opacity: 0; }
-      @keyframes cycle { 0%,19%{opacity:1} 25%,100%{opacity:0} }
-      .l0 { animation: cycle 12s infinite; }
-      .l1 { animation: cycle 12s infinite; animation-delay: 3s; }
-      .l2 { animation: cycle 12s infinite; animation-delay: 6s; }
-      .l3 { animation: cycle 12s infinite; animation-delay: 9s; }
-
-      /* Laser line motion */
-      @keyframes dash { to { stroke-dashoffset: -1200; } }
-      .laser { stroke-dasharray: 8 18; animation: dash 6s linear infinite; }
-
-      @keyframes driftA { 0%{transform:translate(0,0)} 50%{transform:translate(-20px,10px)} 100%{transform:translate(0,0)} }
-      @keyframes driftB { 0%{transform:translate(0,0)} 50%{transform:translate(25px,-12px)} 100%{transform:translate(0,0)} }
-      .driftA { animation: driftA 7s ease-in-out infinite; }
-      .driftB { animation: driftB 8s ease-in-out infinite; }
+      /* Cycle skill lines (one at a time) */
+      .l0,.l1,.l2,.l3{opacity:0}
+      @keyframes cycle { 0%,20%{opacity:1} 26%,100%{opacity:0} }
+      .l0{animation:cycle 12s infinite}
+      .l1{animation:cycle 12s infinite;animation-delay:3s}
+      .l2{animation:cycle 12s infinite;animation-delay:6s}
+      .l3{animation:cycle 12s infinite;animation-delay:9s}
     </style>
   </defs>
 
   <!-- Background -->
   <rect width="1200" height="300" fill="url(#bg)"/>
 
-  <!-- Red laser network (moving groups) -->
-  <g filter="url(#redGlow)" opacity="0.95">
+  <!-- Red network lines (kept behind content) -->
+  <g filter="url(#redGlow)" opacity="0.8">
     <g class="driftA">
-      <path class="laser" d="M-50 40 L250 10 L420 90 L620 25 L820 110 L1030 40 L1260 70"
-            fill="none" stroke="#ff1a1a" stroke-width="2.6"/>
-      <path class="laser" d="M40 260 L230 180 L420 235 L610 150 L760 210 L980 160 L1220 240"
+      <path class="laser" d="M-80 42 L220 10 L420 90 L640 25 L860 110 L1060 42 L1280 78"
             fill="none" stroke="#ff1a1a" stroke-width="2.4"/>
-      <path class="laser" d="M120 30 L180 130 L60 210 L210 280"
+      <path class="laser" d="M-60 250 L220 185 L420 235 L640 150 L820 215 L1020 160 L1280 245"
             fill="none" stroke="#ff1a1a" stroke-width="2.2"/>
-      <path class="laser" d="M470 0 L520 120 L430 210 L560 300"
-            fill="none" stroke="#ff1a1a" stroke-width="2.2"/>
-      <path class="laser" d="M860 0 L760 120 L900 220 L820 300"
-            fill="none" stroke="#ff1a1a" stroke-width="2.2"/>
-      <path class="laser" d="M1100 10 L1020 120 L1160 220 L1050 300"
-            fill="none" stroke="#ff1a1a" stroke-width="2.2"/>
-
-      <!-- Nodes -->
+      <path class="laser" d="M120 18 L190 120 L70 210 L230 285"
+            fill="none" stroke="#ff1a1a" stroke-width="2.0"/>
+      <path class="laser" d="M470 0 L535 120 L440 215 L570 300"
+            fill="none" stroke="#ff1a1a" stroke-width="2.0"/>
+      <path class="laser" d="M880 0 L770 120 L910 220 L830 300"
+            fill="none" stroke="#ff1a1a" stroke-width="2.0"/>
       <g fill="#ff3b3b">
-        <circle cx="250" cy="10" r="3"/>
+        <circle cx="220" cy="10" r="3"/>
         <circle cx="420" cy="90" r="3"/>
-        <circle cx="620" cy="25" r="3"/>
-        <circle cx="820" cy="110" r="3"/>
-        <circle cx="230" cy="180" r="3"/>
+        <circle cx="640" cy="25" r="3"/>
+        <circle cx="860" cy="110" r="3"/>
+        <circle cx="220" cy="185" r="3"/>
         <circle cx="420" cy="235" r="3"/>
-        <circle cx="610" cy="150" r="3"/>
-        <circle cx="980" cy="160" r="3"/>
+        <circle cx="640" cy="150" r="3"/>
+        <circle cx="1020" cy="160" r="3"/>
       </g>
     </g>
 
-    <g class="driftB" opacity="0.85">
-      <path class="laser" d="M-40 120 L140 80 L320 140 L500 70 L690 150 L900 95 L1260 120"
-            fill="none" stroke="#ff0000" stroke-width="2.0"/>
-      <path class="laser" d="M-30 200 L170 240 L380 200 L560 260 L760 200 L980 240 L1260 210"
-            fill="none" stroke="#ff0000" stroke-width="2.0"/>
+    <g class="driftB" opacity="0.75">
+      <path class="laser" d="M-60 115 L150 75 L340 140 L520 70 L720 150 L940 95 L1280 120"
+            fill="none" stroke="#ff0000" stroke-width="1.9"/>
+      <path class="laser" d="M-60 195 L180 240 L380 200 L560 260 L780 200 L1000 240 L1280 210"
+            fill="none" stroke="#ff0000" stroke-width="1.9"/>
     </g>
   </g>
 
-  <!-- Red wave lines -->
-  <g filter="url(#redGlow)" opacity="0.65">
-    <path d="M-40 160 C120 120, 240 220, 380 170 C520 120, 620 220, 760 170 C900 120, 1020 220, 1260 150"
+  <!-- Red wave line -->
+  <g class="waveShift" filter="url(#redGlow)" opacity="0.55">
+    <path d="M-50 165 C120 130, 260 215, 410 175 C560 135, 700 215, 850 175 C1000 135, 1120 215, 1260 160"
           fill="none" stroke="#ff2a2a" stroke-width="2">
-      <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+      <animate attributeName="d" dur="4.8s" repeatCount="indefinite"
         values="
-        M-40 160 C120 120, 240 220, 380 170 C520 120, 620 220, 760 170 C900 120, 1020 220, 1260 150;
-        M-40 170 C120 220, 240 120, 380 180 C520 230, 620 120, 760 190 C900 240, 1020 120, 1260 165;
-        M-40 160 C120 120, 240 220, 380 170 C520 120, 620 220, 760 170 C900 120, 1020 220, 1260 150
-        "/>
-    </path>
-
-    <path d="M-40 210 C140 170, 260 260, 410 210 C560 160, 680 260, 830 215 C980 170, 1100 250, 1260 205"
-          fill="none" stroke="#ff1515" stroke-width="1.8" opacity="0.7">
-      <animate attributeName="d" dur="5.2s" repeatCount="indefinite"
-        values="
-        M-40 210 C140 170, 260 260, 410 210 C560 160, 680 260, 830 215 C980 170, 1100 250, 1260 205;
-        M-40 195 C140 250, 260 165, 410 230 C560 175, 680 250, 830 190 C980 240, 1100 170, 1260 220;
-        M-40 210 C140 170, 260 260, 410 210 C560 160, 680 260, 830 215 C980 170, 1100 250, 1260 205
+        M-50 165 C120 130, 260 215, 410 175 C560 135, 700 215, 850 175 C1000 135, 1120 215, 1260 160;
+        M-50 175 C120 220, 260 130, 410 185 C560 230, 700 135, 850 195 C1000 240, 1120 140, 1260 170;
+        M-50 165 C120 130, 260 215, 410 175 C560 135, 700 215, 850 175 C1000 135, 1120 215, 1260 160
         "/>
     </path>
   </g>
 
-  <!-- Dark overlay to make text readable -->
-  <rect x="0" y="0" width="1200" height="300" fill="rgba(0,0,0,0.28)"/>
+  <!-- Glass panel (THIS fixes readability + layout) -->
+  <rect x="40" y="55" width="1120" height="190" rx="18" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.08)"/>
 
-  <!-- Moving scanlines -->
+  <!-- Scanlines only on panel -->
   <g class="scanMove">
-    <rect width="1200" height="300" fill="url(#scan)" opacity="0.85"/>
+    <rect x="40" y="55" width="1120" height="190" rx="18" fill="url(#scan)" opacity="0.8"/>
   </g>
 
-  <!-- Main title + info -->
-  <g transform="translate(80,140)" class="mono">
-    <!-- Name glow layers -->
-    <g class="pulse">
-      <text x="2" y="0" class="title" fill="rgba(255,0,120,0.25)" filter="url(#whiteGlow)">Kajan Sivaraja</text>
-      <text x="-2" y="2" class="title" fill="rgba(0,255,255,0.20)" filter="url(#whiteGlow)">Kajan Sivaraja</text>
-
-      <text x="0" y="0" class="title glitch" fill="#ffffff" filter="url(#whiteGlow)">Kajan Sivaraja</text>
+  <!-- Content area (safe padding) -->
+  <g transform="translate(85,118)" class="ui">
+    <!-- Name with clean glow -->
+    <g class="pulse" filter="url(#whiteGlow)">
+      <text x="2" y="0" class="name" fill="rgba(255,0,120,0.20)">KAJAN SIVARAJA</text>
+      <text x="-2" y="2" class="name" fill="rgba(0,255,255,0.16)">KAJAN SIVARAJA</text>
+      <text x="0" y="0" class="name glitch" fill="#ffffff">KAJAN SIVARAJA</text>
     </g>
 
-    <text x="6" y="44" class="sub" fill="rgba(255,255,255,0.92)">
-      BSc (Hons) IT Cyber Security • eJPT • ICCA
+    <!-- Degree + cert -->
+    <text x="2" y="42" class="deg" fill="rgba(255,255,255,0.92)">
+      BSc (Hons) Information Technology — Specializing in Cyber Security • eJPT • ICCA
     </text>
 
-    <text x="6" y="86" class="about" fill="rgba(255,255,255,0.85)">
+    <!-- About (single clear line) -->
+    <text x="2" y="74" class="about" fill="rgba(255,255,255,0.86)">
       Passionate about ethical hacking, network defense, and AI-driven security systems.
     </text>
 
-    <!-- Typing skills -->
-    <text x="6" y="124" class="small" fill="rgba(255,255,255,0.86)">
-      root@portfolio:~$ <tspan fill="rgba(255,255,255,0.65)">skills</tspan> :
+    <!-- Skills typing line (always visible position, no overlap) -->
+    <text x="2" y="112" class="mono line" fill="rgba(255,255,255,0.90)">
+      root@portfolio:~$ <tspan class="muted">skills</tspan> :
       <tspan class="l0 typing" xml:space="preserve"> Penetration Testing • Network Security</tspan>
       <tspan class="l1 typing" xml:space="preserve"> Kali Linux • SOC Fundamentals</tspan>
       <tspan class="l2 typing" xml:space="preserve"> Python • Security Automation</tspan>
       <tspan class="l3 typing" xml:space="preserve"> Web Security • OWASP • Bug Hunting</tspan>
       <tspan class="cursor">█</tspan>
     </text>
-  </g>
 
-  <!-- Bottom contact (edit these) -->
-  <g class="mono" transform="translate(80,270)">
-    <text x="0" y="0" fill="rgba(255,255,255,0.7)" font-size="14">
-      SIVAKAJAN07@GMAIL.COM  •  WWW.SIVARAJAKAJAN.LK  •  linkedin.com/in/sivakajan
+    <!-- Contact on separate line (no overlap) -->
+    <text x="2" y="145" class="mono" font-size="14" fill="rgba(255,255,255,0.70)">
+      sivakajan07@gmail.com  •  sivarajakajan.lk  •  linkedin.com/in/sivakajan
     </text>
   </g>
 
