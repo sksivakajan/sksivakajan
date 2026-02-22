@@ -1,0 +1,106 @@
+<!-- assets/banner.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#040007"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+
+    <filter id="whiteGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+
+    <filter id="redGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+
+    <style>
+      .ui { font-family: Arial, sans-serif; }
+      .name { font-size:72px; font-weight:900; fill:white; }
+      .sub { font-size:20px; fill:rgba(255,255,255,0.9); }
+      .small { font-size:16px; fill:rgba(255,255,255,0.8); }
+
+      @keyframes float1 {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+      @keyframes float2 {0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+      @keyframes float3 {0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+      .f1 { animation:float1 4s ease-in-out infinite;}
+      .f2 { animation:float2 5s ease-in-out infinite;}
+      .f3 { animation:float3 6s ease-in-out infinite;}
+
+      @keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+      .pulse { animation:pulse 2.6s infinite;}
+
+      @keyframes dash {to{stroke-dashoffset:-1000}}
+      .laser {stroke-dasharray:8 14; animation:dash 6s linear infinite;}
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <!-- red network -->
+  <g filter="url(#redGlow)" opacity="0.7">
+    <path class="laser" d="M0 60 L300 20 L600 80 L900 40 L1200 70"
+      stroke="#ff1a1a" stroke-width="2" fill="none"/>
+    <path class="laser" d="M0 240 L250 200 L550 260 L850 210 L1200 250"
+      stroke="#ff1a1a" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- text -->
+  <g transform="translate(80,150)" class="ui">
+    <text class="name pulse" filter="url(#whiteGlow)">KAJAN SIVARAJA</text>
+    <text y="40" class="sub">BSc (Hons) Cyber Security • eJPT • ICCA</text>
+    <text y="80" class="small">Ethical Hacking • Penetration Testing • Security Research</text>
+  </g>
+
+  <!-- skill logos right side -->
+  <g transform="translate(850,80) scale(0.9)">
+    
+    <!-- Kali -->
+    <g class="f1">
+      <path d="M40 10 C25 12 15 25 15 40 C15 55 28 68 45 70 C32 72 20 65 15 55 
+               C10 70 22 85 40 90 C55 95 75 90 85 78 C95 65 95 50 88 38 
+               C82 28 70 18 58 18 C68 12 80 15 88 22 
+               C86 10 72 5 60 6 C50 7 45 8 40 10Z"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="0" y="110" fill="#00ff88" font-size="12">Kali</text>
+    </g>
+
+    <!-- Python -->
+    <g transform="translate(120,0)" class="f2">
+      <rect x="10" y="10" width="50" height="50" rx="10"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="18" y="40" fill="#00ff88" font-size="14">Py</text>
+    </g>
+
+    <!-- Burp -->
+    <g transform="translate(240,0)" class="f3">
+      <rect x="10" y="10" width="50" height="50" rx="10"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="16" y="40" fill="#00ff88" font-size="12">Burp</text>
+    </g>
+
+    <!-- Metasploit -->
+    <g transform="translate(0,110)" class="f2">
+      <rect x="10" y="10" width="50" height="50" rx="10"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="12" y="40" fill="#00ff88" font-size="10">Meta</text>
+    </g>
+
+    <!-- Wireshark -->
+    <g transform="translate(120,110)" class="f1">
+      <rect x="10" y="10" width="50" height="50" rx="10"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="10" y="40" fill="#00ff88" font-size="10">Wire</text>
+    </g>
+
+    <!-- Linux -->
+    <g transform="translate(240,110)" class="f3">
+      <rect x="10" y="10" width="50" height="50" rx="10"
+            fill="none" stroke="#00ff88" stroke-width="2"/>
+      <text x="14" y="40" fill="#00ff88" font-size="12">Linux</text>
+    </g>
+
+  </g>
+</svg>
